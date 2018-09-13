@@ -16,6 +16,8 @@ class IndexController extends ControllerBase
 
         $work_model = new  Works();
 
+        $hours_to_work = 8;
+
         $auth = $this->getAuth();
 
         $id = $auth['id'];
@@ -36,7 +38,9 @@ class IndexController extends ControllerBase
 
         $the_calendar = $work_model->getAllDaysInMonth($month, $year);
 
-        $assigned = $work_model->getAssigned($month, $year) * 8;
+        $assigned = $work_model->getAssigned($month, $year) * $hours_to_work;
+
+        $total_work_time = $work_model->getUserWorkTime($id,$month,$year);
 
         $this->view->setVars(
             array(
@@ -47,6 +51,7 @@ class IndexController extends ControllerBase
                 'myTimes' => $myTimes,
                 'times' => $times,
                 'assigned' => $assigned,
+                'total_work_time' => $total_work_time
             )
         );
     }

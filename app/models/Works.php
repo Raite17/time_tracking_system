@@ -155,6 +155,7 @@ class Works extends \Phalcon\Mvc\Model
             $result[$j]['start_day'] = strtotime($year.'-'.$month.'-'.$day);
             $result[$j]['end_day'] = strtotime($year.'-'.$month.'-'.$day.' 23:59:59');
         };
+
         return $result;
     }
 
@@ -170,6 +171,26 @@ class Works extends \Phalcon\Mvc\Model
                 $result++;
             }
         };
+
+        return $result;
+    }
+
+    public function getUserWorkTime($id, $month, $year)
+    {
+        $result = 0;
+
+        $expression = $year.'-'.$month.'%';
+
+        $works = Works::find(
+            [
+                'user_id = :user_id: AND start LIKE :expression:',
+                'bind' => ['user_id' => $id, 'expression' => $expression],
+            ]
+        );
+
+        foreach ($works as $work) {
+            $result += (int)$work->total;
+        }
 
         return $result;
     }

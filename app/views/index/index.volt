@@ -5,8 +5,7 @@
 
 <div class="page-header pull-left log">
     <h1>My Hours Log</h1>
-    <p>You Have: <b>26:16</b></p>
-    <p>You have/Assigned: <b>16.43%</b></p>
+    <p>You Have: <b class="assigned"> <?= gmdate("H:i:s", $total_work_time)?></b> </p>
     <p>Assigned: <b class="assigned">{{ assigned }}</b> </p>
     <p>Fails: <b>0</b></p>
 </div>
@@ -61,7 +60,7 @@
                             {% endif %}
                         {% endfor %}
                         {% if total != 0 %}
-                            <span> total: <i class="total"> <?php echo gmdate("H:i:s", $total)?> </i> </span>
+                            <span> total: <i class="total"> <?=  gmdate("H:i:s", $total)?> </i> </span>
                         {% else %}
                         {% endif %}
                     </td>
