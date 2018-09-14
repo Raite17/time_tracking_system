@@ -1,5 +1,6 @@
-
+{{ flash.output() }}
 {{ content() }}
+{% set auth = session.get('auth') %}
 
 <div class="page-header">
     <h2>Регистрация</h2>
@@ -42,7 +43,8 @@
             <div class="controls">
                 {{ password_field('repeatPassword', 'class': 'form-control') }}
             </div>
-        </div><br />
+        </div>
+        <br/>
         <div class="form-actions">
             {{ submit_button('Register', 'class': 'btn btn-primary') }}
         </div>

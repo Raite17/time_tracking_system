@@ -19,21 +19,18 @@ class RegisterController extends ControllerBase
 
             if ($form->isValid($this->request->getPost())) {
 
-                $username = $this->request->getPost('username',['string', 'striptags']);
-                $login = $this->request->getPost('login',['alphanum']);
+                $username = $this->request->getPost('username', ['string', 'striptags']);
+                $login = $this->request->getPost('login', ['alphanum']);
                 $email = $this->request->getPost('email', 'email');
                 $password = $this->request->getPost('password');
                 $repeatPassword = $this->request->getPost('repeatPassword');
 
-                if ($password  != $repeatPassword) {
+                if ($password != $repeatPassword) {
                     $this->flash->error('Пароли не совпадают');
-                }
-
-                else{
+                } else {
                     $user->setUsers();
                 }
-            }
-            else{
+            } else {
                 foreach ($form->getMessages() as $message) {
                     $this->flash->success($message);
                 }

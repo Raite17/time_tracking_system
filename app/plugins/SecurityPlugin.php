@@ -29,6 +29,10 @@ class SecurityPlugin extends Plugin
                     'Guests',
                     'Anyone browsing the site who is not signed in is considered to be a "Guest".'
                 ),
+                'admin' => new Role(
+                        'Admin',
+                        'The Lord!'
+                ),
             ];
 
             foreach ($roles as $role) {

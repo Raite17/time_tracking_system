@@ -40,7 +40,7 @@ class IndexController extends ControllerBase
 
         $assigned = $work_model->getAssigned($month, $year) * $hours_to_work;
 
-        $total_work_time = $work_model->getUserWorkTime($id,$month,$year);
+        $total_work_time = $work_model->getUserWorkTime($id, $month, $year);
 
         $this->view->setVars(
             array(
@@ -51,7 +51,7 @@ class IndexController extends ControllerBase
                 'myTimes' => $myTimes,
                 'times' => $times,
                 'assigned' => $assigned,
-                'total_work_time' => $total_work_time
+                'total_work_time' => $total_work_time,
             )
         );
     }

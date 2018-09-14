@@ -61,7 +61,7 @@ class Users extends \Phalcon\Mvc\Model
             'email',
             new EmailValidator(
                 [
-                    'model'   => $this,
+                    'model' => $this,
                     'message' => 'Please enter a correct email address',
                 ]
             )
@@ -114,28 +114,40 @@ class Users extends \Phalcon\Mvc\Model
     public function setUsers()
     {
         $password = $this->getDI()->getSecurity()->hash($this->getDI()->getRequest()->getPost('password'));
-        $this->username = $this->getDI()->getRequest()->getPost('username',['string', 'striptags']);
-        $this->login = $this->getDI()->getRequest()->getPost('login',['alphanum']);
-        $this->email = $this->getDI()->getRequest()->getPost('email','email');
-        $this->password  = $password;
+        $this->username = $this->getDI()->getRequest()->getPost('username', ['string', 'striptags']);
+        $this->login = $this->getDI()->getRequest()->getPost('login', ['alphanum']);
+        $this->email = $this->getDI()->getRequest()->getPost('email', 'email');
+        $this->password = $password;
         $this->created_at = new Phalcon\Db\RawValue('now()');
         $this->active = 1;
         $this->role = 'user';
-//        try {
-//
-//        } catch (Exception $e) {
-//
-//        }
-        if (!$this->save()){
+        if (!$this->save()) {
             return false;
-        }
-
-        else {
+        } else {
             $this->getDI()->getFlash()->success('Регистрация прошла успешна!');
             $this->getDI()->getResponse()->redirect('/stuff');
         }
     }
 
+    public function userAuth($email)
+    {
+        return Users::findFirst(
+            [
+                "conditions" => "email = :email: AND active = 1",
+                'bind' => ['email' => $email],
+            ]
+        );
+    }
+
+    public function findUser($id)
+    {
+        return Users::findFirst(
+            [
+                "conditions" => "id = :id: AND active = 1",
+                'bind' => ['id' => $id],
+            ]
+        );
+    }
 
     public function getUsers($id)
     {
@@ -145,7 +157,7 @@ class Users extends \Phalcon\Mvc\Model
             ->execute();
     }
 
-    public  function getWorks()
+    public function getWorks()
     {
         return Users::query()
             ->leftJoin('Works', 'Users.id = w.user_id', 'w')
@@ -160,6 +172,23 @@ class Users extends \Phalcon\Mvc\Model
                 )
             )
             ->execute();
+    }
+
+    public function setNewPassword()
+    {
+        try {
+            $password = $this->getDI()->getSecurity()->hash($this->getDI()->getRequest()->getPost('new_password'));
+            $this->password = $password;
+        } catch (Exception $exception){
+            $this->getMessages($exception);
+        }
+        if (!$this->save()) {
+            $this->getDI()->getFlash()->error('Не удалось сохранить пароль!');
+            $this->getDI()->getResponse()->redirect('/change_password');
+        } else {
+            $this->getDI()->getFlash()->success('Пароль успешно изменён!');
+            $this->getDI()->getResponse()->redirect('/change_password');
+        }
     }
 
 }

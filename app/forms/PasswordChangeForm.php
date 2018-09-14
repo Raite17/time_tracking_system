@@ -13,7 +13,6 @@ class PasswordChangeForm extends  Form
         //Old Password
         $old_password = new Password('old_password');
         $old_password->setLabel('Старый Пароль');
-        $old_password->setFilters(['alphanum']);
         $old_password->addValidators([
             new PresenceOf([
                 'message' => 'Введите старый пароль!'
@@ -24,10 +23,9 @@ class PasswordChangeForm extends  Form
         //New Password
         $new_password = new Password('new_password');
         $new_password->setLabel('Новый Пароль');
-        $new_password->setFilters(['alphanum']);
         $new_password->addValidators([
             new PresenceOf([
-                'message' => 'Введите старый пароль!'
+                'message' => 'Введите новый пароль!'
             ])
         ]);
         $this->add($new_password);
@@ -35,10 +33,9 @@ class PasswordChangeForm extends  Form
         //Confirm new password
         $repeatPassword = new Password('repeatPassword');
         $repeatPassword->setLabel('Подтвердите пароль');
-        $repeatPassword->setFilters(['alphanum']);
         $repeatPassword->addValidators([
             new PresenceOf([
-                'message' => 'Введите старый пароль!'
+                'message' => 'Введите подтвержденный пароль!'
             ])
         ]);
         $this->add($repeatPassword);
