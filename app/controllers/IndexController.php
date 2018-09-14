@@ -12,6 +12,13 @@ class IndexController extends ControllerBase
 
     public function indexAction()
     {
+        if ($this->request->isPost()) {
+            $month = $this->request->getPost('month');
+            $year = $this->request->getPost('year');
+        } else {
+            $month = $this->getCurrentMonth();
+            $year = $this->getCurrentYear();
+        }
         $users_model = new  Users();
 
         $work_model = new  Works();
@@ -21,10 +28,6 @@ class IndexController extends ControllerBase
         $auth = $this->getAuth();
 
         $id = $auth['id'];
-
-        $month = $this->getCurrentMonth();
-
-        $year = $this->getCurrentYear();
 
         $firstUser = $users_model->getUsers($id);
 

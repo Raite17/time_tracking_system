@@ -194,5 +194,4 @@ class Works extends \Phalcon\Mvc\Model
 
         return $result;
     }
-
 }
