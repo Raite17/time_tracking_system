@@ -14,7 +14,6 @@
 <div class="container">
 
     <div class="button">
-
         {% if  myTimes and myTimes.stop or myTimes == null %}
             {{ form ('/start') }}
             <button id="start_button" type="submit" class="btn btn-primary"
@@ -31,7 +30,7 @@
             </form>
         {% endif %}
 
-        {{ form ('/stuff')}}
+        {{ form ('/stuff') }}
         <select name="month" onchange="this.form.submit()">
             <option value="1">Январь</option>
             <option value="2">Февраль</option>
@@ -48,14 +47,13 @@
         </select>
 
         <select name="year" onchange="this.form.submit()">
-            <option value="2018" selected >2018</option>
+            <option value="2018" selected>2018</option>
             <option value="2019">2019</option>
             <option value="2020">2020</option>
             <option value="2021">2021</option>
             <option value="22">2022</option>
         </select>
         </form>
-
     </div>
 
     <table class="table table-bordered table-hover hours_log text-center">
@@ -88,7 +86,11 @@
                             {% endif %}
                         {% endfor %}
                         {% if total != 0 %}
-                            <span> total: <i class="total"> <?php echo  gmdate("H:i:s", $total)?> </i> </span>
+                            <span> total: <i class="total"> <?php echo  gmdate("H:i:s", $total)?> </i> </span><br>
+                            {% set less = 8 * 3600 - total %}
+                            {% if less > 0 %}
+                                <span> less : <b class="less"> <?php echo  gmdate("H:i:s", $less); ?> </b>  </span>
+                            {% endif %}
                         {% else %}
                         {% endif %}
                     </td>

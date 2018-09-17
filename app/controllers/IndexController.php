@@ -7,6 +7,7 @@ class IndexController extends ControllerBase
     public function initialize()
     {
         $this->tag->setTitle('Main');
+        $this->view->setTemplateAfter('admin');
         parent::initialize();
     }
 
@@ -19,6 +20,7 @@ class IndexController extends ControllerBase
             $month = $this->getCurrentMonth();
             $year = $this->getCurrentYear();
         }
+
         $users_model = new  Users();
 
         $work_model = new  Works();
