@@ -61,7 +61,7 @@ class SessionController extends ControllerBase
     public function logoutAction()
     {
         $this->session->remove('auth');
-        return $this->response->redirect('/auth');
+        return $this->response->redirect('/');
     }
 
     public function isAdmin(){

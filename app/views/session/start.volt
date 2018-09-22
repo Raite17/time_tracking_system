@@ -7,7 +7,7 @@
 
 <div class="container">
 
-    {{ form('/auth') }}
+    {{ form('/') }}
 
     <fieldset>
 

@@ -122,7 +122,7 @@ class Users extends \Phalcon\Mvc\Model
         $this->active = 1;
         $this->role = 'user';
         if (!$this->save()) {
-            return false;
+            $this->getDI()->getFlash()->error('Возникла ошибка,повторите снова!');
         } else {
             $this->getDI()->getFlash()->success('Регистрация прошла успешна!');
             $this->getDI()->getResponse()->redirect('/stuff');
@@ -156,6 +156,15 @@ class Users extends \Phalcon\Mvc\Model
             ->orderBy("IF(Users.id = {$id}, 1,0) DESC")
             ->execute();
     }
+
+    public function getAllUsers()
+    {
+        return Users::query()
+            ->where("role = 'user'")
+            ->orderBy( "created_at DESC")
+            ->execute();
+    }
+
 
     public function getWorks()
     {

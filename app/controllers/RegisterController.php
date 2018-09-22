@@ -32,10 +32,9 @@ class RegisterController extends ControllerBase
                 }
             } else {
                 foreach ($form->getMessages() as $message) {
-                    $this->flash->success($message);
+                    $this->flash->error($message);
                 }
             }
-
         }
         $this->view->form = $form;
     }

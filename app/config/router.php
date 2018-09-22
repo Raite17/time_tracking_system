@@ -5,7 +5,7 @@ $router = $di->getRouter();
 $router->add(
     '/sign_up',
     [
-        'controller' => 'admin',
+        'controller' => 'register',
         'action' => 'index',
     ]
 );
@@ -27,7 +27,7 @@ $router->add(
 );
 
 $router->add(
-    '/auth',
+    '/',
     [
         'controller' => 'session',
         'action' => 'start',
