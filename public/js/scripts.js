@@ -1,3 +1,5 @@
+//hide/show function
+
 let days = document.getElementsByClassName('day');
 for (let i = 1; i <= days.length; i++) {
     if (i === new Date().getDate()) continue;
